@@ -5,6 +5,7 @@ import Genre from "../../Components/Music/Genre";
 import Rating from "../../Components/Music/Rating";
 import Songs from "../../Components/Music/Songs";
 
+
 class Songpage extends Component {
 
     state = {
@@ -22,7 +23,8 @@ class Songpage extends Component {
                 genre: "Pop",
                 rating: "4 STARS"
             }
-        ]
+        ],
+        filterOption=this.filterOption.bind(this)
     };
 
     addSongHandler = () => {
@@ -71,6 +73,19 @@ class Songpage extends Component {
         this.setState({ newSong: newSong });
 
     };
+
+    filterOption(e) {
+        let filterSongs = this.state.newSong;
+        filterSongs = newSong.filter((item => {
+            return item.toLowerCase().search(
+                e.target.value.toLowerCase()) !== -1;
+        }));
+        this.setState({
+            newSong: filterSongs
+        })
+    }
+
+
 
     //Stil can not figure out the delete function
     // deleteSongHandler = event => {
@@ -125,6 +140,10 @@ class Songpage extends Component {
                         ADD
                 </button>
                 </div>
+                <input type="text"
+                    className="center-block"
+                    placeholder="Filter here..."
+                    onChange={this.filterOption}></input>
                 <div className="bottom">
                     <ul className="songs">
                         <ul>
